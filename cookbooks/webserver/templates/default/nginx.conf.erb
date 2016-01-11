@@ -1,0 +1,71 @@
+# user nginx will run as
+user nobody nogroup;
+
+#The number of worker processes - setting it to equal to number of cores should be good
+worker_processes  1;
+
+# setup where nginx will log errors to
+# and where the nginx process id resides
+error_log  /var/log/nginx/error.log;
+pid        /var/run/nginx.pid;
+
+events {
+  worker_connections  1024;
+  # set to on if you have more than 1 worker_processes
+  accept_mutex off;
+}
+
+http {
+  include       /etc/nginx/mime.types;
+
+  default_type application/octet-stream;
+  access_log /tmp/nginx.access.log combined;
+
+  # use the kernel sendfile
+  sendfile        on;
+  # prepend http headers before sendfile()
+  tcp_nopush     on;
+
+  keepalive_timeout  30;
+  client_max_body_size 4G;
+  tcp_nodelay        on;
+
+  gzip  on;
+  gzip_vary on;
+  gzip_min_length 500;
+
+  gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+  gzip_types text/plain text/xml text/css
+     text/comma-separated-values
+     text/javascript application/x-javascript
+     application/atom+xml image/x-icon;
+
+  # use the socket as configured in the app unicorn.rb file
+  upstream unicorn_server {
+    server unix:/path/to/app/tmp/sockets/unicorn.sock
+        fail_timeout=0;
+  }
+
+  #Virtual host
+  server {
+    server_name my-sinatra-app.com;
+    # replace this with your static Sinatra app files, root + public
+    root /path/to/app/public;
+    # port to listen for requests on
+    listen 80;
+    # the server will close connections after this time
+    keepalive_timeout 5;
+
+    location / {
+      try_files $uri @sinatra_app;
+    }
+
+    location @sinatra_app {
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $http_host;
+      proxy_redirect off;
+      # Reverse proxy to the upstream unicorn servere
+      proxy_pass http://unicorn_server;
+    }
+  }
+}
