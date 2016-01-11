@@ -5,5 +5,4 @@
 #
 include_recipe "common"
 include_recipe "webserver::nginx"
-include_recipe "appserver"
-include_recipe "appserver::unicorn"
+include_recipe "appserver::sinatra-unicorn-ruby"
