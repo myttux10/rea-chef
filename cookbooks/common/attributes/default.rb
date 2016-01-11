@@ -1,0 +1,1 @@
+default[:common][:rhel_devel_packages]=["gcc","gcc-c++", "patch", "readline", "readline-devel", "zlib", "zlib-devel", "libyaml-devel", "libffi-devel", "openssl-devel", "make", "bzip2", "autoconf", "automake","libtool","git-core"]
