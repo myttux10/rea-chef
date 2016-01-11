@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+#
+#
+set -x
+set -e
+### RVM 1.26.0 introduces signed releases and automated check of signatures when GPG software found.
+##trust Michal Papis import the mpapis public key (downloading the signatures).
+
+#Install stable version of rvm
+#Check if it's already installed
+
+set +e
+rvm -v|which rvm
+exit_code=$?
+set -e
+
+#if [[ $exit_code -ne 0 || $rvm_version != "<%= node[:appserver][:rvm][:version] %>" ]];
+if [[ $exit_code -ne 0 ]]
+then 
+ curl -sSL https://rvm.io/mpapis.asc | sudo gpg --import -
+
+ curl -L get.rvm.io | bash -s stable 
+ source /etc/profile.d/rvm.sh
+fi
+
+##Install Ruby
+
+is_installed () {
+ rvm list|grep $1
+ return_code=$?
+ return $return_code
+}
+
+<% if node[:appserver][:ruby][:version] and not node[:appserver][:ruby][:version].empty? %>
+
+  <%  node[:appserver][:ruby][:version].each do |version| %>
+set +e
+is_installed '<%= version %>'
+installed=$?
+set -e 
+
+if [[ $installed -ne 0 ]];
+then 
+  rvm install <%= version %>
+fi
+
+  <% end %>
+
+<% else %>
+rvm install ruby --latest
+
+rvm use <%= node[:appserver][:ruby][:default_version] %> --default
+
+<% end -%>
+
+## Install Unicorn
+set +e
+gem list -i unicorn
+gem_installed=$?
+set -e
+
+if [[ $gem_installed -ne 0 ]]
+then
+ gem install unicorn -v  <%= node[:appserver][:unicorn][:version] %>
+fi
+
+## Install Unicorn
+set +e
+gem list -i bundler
+gem_installed=$?
+set -e
+
+if [[ $gem_installed -ne 0 ]]
+then
+ gem install bundler
+fi
