@@ -1,0 +1,6 @@
+source "https://supermarket.chef.io"
+
+metadata
+cookbook "common", :path => "../common"
+cookbook "appserver", :path => "../appserver"
+cookbook "webserver", :path => "../webserver"
