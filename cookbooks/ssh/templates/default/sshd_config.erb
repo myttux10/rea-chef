@@ -10,7 +10,7 @@
 # possible, but leave them commented.  Uncommented options change a
 # default value.
 
-#Port 22
+Port 22
 #AddressFamily any
 #ListenAddress 0.0.0.0
 #ListenAddress ::
@@ -28,7 +28,7 @@ Protocol 2
 
 # Lifetime and size of ephemeral version 1 server key
 #KeyRegenerationInterval 1h
-#ServerKeyBits 1024
+ServerKeyBits 1024
 
 # Logging
 # obsoletes QuietMode and FascistLogging
@@ -39,30 +39,30 @@ SyslogFacility AUTHPRIV
 # Authentication:
 
 #LoginGraceTime 2m
-#PermitRootLogin yes
+PermitRootLogin no
 #StrictModes yes
-#MaxAuthTries 6
+MaxAuthTries 6
 #MaxSessions 10
 
-#RSAAuthentication yes
-#PubkeyAuthentication yes
-#AuthorizedKeysFile	.ssh/authorized_keys
+RSAAuthentication yes
+PubkeyAuthentication yes
+AuthorizedKeysFile	.ssh/authorized_keys
 #AuthorizedKeysCommand none
 #AuthorizedKeysCommandRunAs nobody
 
 # For this to work you will also need host keys in /etc/ssh/ssh_known_hosts
-#RhostsRSAAuthentication no
+RhostsRSAAuthentication no
 # similar for protocol version 2
-#HostbasedAuthentication no
+HostbasedAuthentication no
 # Change to yes if you don't trust ~/.ssh/known_hosts for
 # RhostsRSAAuthentication and HostbasedAuthentication
 #IgnoreUserKnownHosts no
 # Don't read the user's ~/.rhosts and ~/.shosts files
-#IgnoreRhosts yes
+IgnoreRhosts yes
 
 # To disable tunneled clear text passwords, change to no here!
 #PasswordAuthentication yes
-#PermitEmptyPasswords no
+PermitEmptyPasswords no
 PasswordAuthentication yes
 
 # Change to no to disable s/key passwords
@@ -105,8 +105,8 @@ AcceptEnv XMODIFIERS
 #AllowAgentForwarding yes
 #AllowTcpForwarding yes
 #GatewayPorts no
-#X11Forwarding no
-X11Forwarding yes
+X11Forwarding no
+#X11Forwarding yes
 #X11DisplayOffset 10
 #X11UseLocalhost yes
 #PrintMotd yes
