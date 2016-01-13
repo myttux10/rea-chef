@@ -12,7 +12,7 @@ directory chef_config_dir do
  recursive true
 end
 
-if platform?("redhat", "centos") 
+if platform?("redhat", "centos")
 # EPEL yum repository bootstrap file
  template "#{chef_config_dir}/epel-bootstrap.repo" do
   source "epel-bootstrap.repo.erb"
@@ -23,7 +23,7 @@ if platform?("redhat", "centos")
  bash "Install EPEL Repo" do
    code <<-EOH
     cp #{chef_config_dir}/epel-bootstrap.repo /etc/yum.repos.d/epel-bootstrap.repo
-    cp_exit_code=$? 
+    cp_exit_code=$?
 
     yum --disablerepo=* --enablerepo=epel -y install epel-release
     yum_exit_code=$?
@@ -43,7 +43,10 @@ if platform?("redhat", "centos")
   package package_name do
    action :install
   end
- end 
+ end
+
+
+end
 
 
 end
