@@ -48,5 +48,16 @@ if platform?("redhat", "centos")
 
 end
 
+#Enable Selinux
+template "/etc/selinux/config" do
+ source "selinux.erb"
+ action :create
+ mode 0644
+end
 
+#Put selinux into enforcing mode if it's not already in enforcing mode
+execute "enforce selinuex" do
+ command "setenforce 1"
+ action :run
+ not_if 'getenforce| grep -i Enforcing'
 end
