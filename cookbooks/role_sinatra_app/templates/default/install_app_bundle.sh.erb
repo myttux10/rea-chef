@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+source /etc/profile.d/rvm.sh
+#rvm use <%= node[:appserver][:ruby][:default_version] %>
+## Install Unicorn
+set +e
+cd <%= @app_dir%>
+bundle check
+gems_installed=$?
+
+set -e
+echo "gems installed?: $gems_installed " >>/test.log
+if [[ $gems_installed -ne 0 ]]
+then
+ bundle install --path <%= @app_dir %> >>/test.log
+fi
