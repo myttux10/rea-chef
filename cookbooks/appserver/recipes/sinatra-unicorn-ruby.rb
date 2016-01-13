@@ -20,6 +20,7 @@ user node[:appserver][:app_user] do
   comment 'App user'
   home '/home/sapp'
   shell '/bin/bash'
+  password '$1$b7PqXqpj$CLiNXn0e4WGSGdxV/mEBI1'
 end
 
 # Application base directory
