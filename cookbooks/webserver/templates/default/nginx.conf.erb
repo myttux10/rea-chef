@@ -21,6 +21,20 @@ http {
   default_type application/octet-stream;
   access_log /var/log/nginx.access.log combined;
 
+  # Hide information about nginx server
+  server_tokens off
+  
+  #Disable all http methods except GET, HEAD or POST
+  if ($request_method !~ ^(GET|HEAD|POST)$ )
+     {
+        return 444;
+     }
+
+
+  # Limit connection requests to 2 requests pers second and allow burst of up to 5 connections
+  limit_req_zone $binary_remote_addr zone=login:10m rate=1r/s;
+  limit_req zone=login burst=5;
+
   # use the kernel sendfile
   sendfile        on;
   # prepend http headers before sendfile()
