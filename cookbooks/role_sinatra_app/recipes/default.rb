@@ -6,11 +6,22 @@
 include_recipe "common"
 include_recipe "appserver::sinatra-unicorn-ruby"
 include_recipe "webserver::nginx"
-#unicorn config file for the sinatra app
 app_user=node[:appserver][:app_user]
 app_dir=node[:role_sinatra_app][:app_dir]
-#application directory
 
+#IPtables configuration for this server
+template "/etc/sysconfig/iptables" do
+ source "iptables.erb"
+ action :create
+ mode 0644
+ notifies :restart, 'service[iptables]'
+end
+
+service "iptables" do
+ action [:enable, :start]
+end
+
+#application directory
 directory app_dir do
  action :create
  user app_user
@@ -69,3 +80,4 @@ end
 service 'unicorn' do
  action [:enable, :start]
 end
+
