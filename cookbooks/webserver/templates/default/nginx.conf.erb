@@ -1,5 +1,5 @@
 # user nginx will run as
-user nobody nogroup;
+user nobody;
 
 #The number of worker processes - setting it to equal to number of cores should be good
 worker_processes  1;
@@ -19,7 +19,7 @@ http {
   include       /etc/nginx/mime.types;
 
   default_type application/octet-stream;
-  access_log /tmp/nginx.access.log combined;
+  access_log /var/log/nginx.access.log combined;
 
   # use the kernel sendfile
   sendfile        on;
@@ -42,7 +42,7 @@ http {
 
   # use the socket as configured in the app unicorn.rb file
   upstream unicorn_server {
-    server unix:/path/to/app/tmp/sockets/unicorn.sock
+    server unix:/var/www/apps/rea/tmp/sockets/unicorn.sock
         fail_timeout=0;
   }
 
@@ -50,7 +50,7 @@ http {
   server {
     server_name my-sinatra-app.com;
     # replace this with your static Sinatra app files, root + public
-    root /path/to/app/public;
+    root /var/www/apps/rea/public;
     # port to listen for requests on
     listen 80;
     # the server will close connections after this time
