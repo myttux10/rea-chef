@@ -4,6 +4,7 @@
 #
 #
 include_recipe "common"
+include_recipe "ssh"
 include_recipe "appserver::sinatra-unicorn-ruby"
 include_recipe "webserver::nginx"
 app_user=node[:appserver][:app_user]

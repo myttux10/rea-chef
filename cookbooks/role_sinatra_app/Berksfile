@@ -4,3 +4,4 @@ metadata
 cookbook "common", :path => "../common"
 cookbook "appserver", :path => "../appserver"
 cookbook "webserver", :path => "../webserver"
+cookbook "ssh", :path => "../ssh"
