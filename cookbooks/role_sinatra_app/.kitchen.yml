@@ -1,7 +1,9 @@
 ---
 driver:
   name: vagrant
-
+  network:
+    - ["forwarded_port", {guest: 22, host: 2223}] #port forwarding to guest ssh#
+    - ["forwarded_port", {guest: 80, host: 8080}] #port forwarding to web app on guest#
 provisioner:
   name: chef_solo
 
