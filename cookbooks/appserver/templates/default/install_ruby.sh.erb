@@ -65,9 +65,10 @@ then
  gem install unicorn -v  <%= node[:appserver][:unicorn][:version] %>
 fi
 
-## Install Unicorn
+## Install bundler
 set +e
-gem list -i bundler
+#gem list -i bundler
+gem list --local|grep "^bundler "
 gem_installed=$?
 set -e
 
@@ -75,3 +76,4 @@ if [[ $gem_installed -ne 0 ]]
 then
  gem install bundler
 fi
+
