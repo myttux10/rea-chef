@@ -8,4 +8,4 @@ version          '0.1.0'
 depends 'common'
 depends 'webserver'
 depends 'appserver'
-
+depends 'ssh'
