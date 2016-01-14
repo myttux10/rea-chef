@@ -48,9 +48,10 @@ http {
      application/atom+xml image/x-icon;
 
   # use the socket as configured in the app unicorn.rb file
+  # Also using port 9292 as backup.
   upstream unicorn_server {
-    server unix:/var/www/apps/rea/tmp/sockets/unicorn.sock
-        fail_timeout=0;
+    server unix:/var/www/apps/rea/tmp/sockets/unicorn.sock fail_timeout=0;
+    server localhost:9292 backup fail_timeout=0;
   }
 
   #Virtual host
