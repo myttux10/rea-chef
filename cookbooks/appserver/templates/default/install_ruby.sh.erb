@@ -10,14 +10,14 @@ if [[ -f /etc/profile.d/rvm.sh ]]
 then
  source /etc/profile.d/rvm.sh
 fi
-rvm -v|which rvm
+rvm -v
 exit_code=$?
 
 set -e
 #if [[ $exit_code -ne 0 || $rvm_version != "<%= node[:appserver][:rvm][:version] %>" ]];
 if [[ $exit_code -ne 0 ]]
 then
- curl -sSL https://rvm.io/mpapis.asc | sudo gpg --import -
+ curl -sSL https://rvm.io/mpapis.asc | gpg --import -
 
  curl -L get.rvm.io | bash -s stable
  source /etc/profile.d/rvm.sh
