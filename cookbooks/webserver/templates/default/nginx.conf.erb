@@ -22,7 +22,7 @@ http {
   access_log /var/log/nginx.access.log combined;
 
   # Hide information about nginx server
-  server_tokens off
+  server_tokens off;
   
   #Disable all http methods except GET, HEAD or POST
   if ($request_method !~ ^(GET|HEAD|POST)$ )
