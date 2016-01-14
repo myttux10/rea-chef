@@ -1,12 +1,12 @@
-# Chef Cookbooks to configure web application server on RHEL based distributiion
+# Chef Cookbooks to configure web application server on RHEL based distribution
 
-# Assumptions:
- The server to be provisioned has access to internet for downloading packages
- The server has IP address and DNS configured
- The server has connectivity to the cher server
- Server has a user configured with sudo privileges.
+## Assumptions:
+* The server to be provisioned has access to internet for downloading packages
+* The server has IP address and DNS configured
+* The server has connectivity to the cher server
+* Server has a user configured with sudo privileges.
 
-# Bootstrapping of new node
+## Bootstrapping of new node
 Instruction on using the Chef cookbooks
 
 The chef workstation used for orchestration should be configured (config file knife.rb) with with credentials of administrative rights on the Cher server
