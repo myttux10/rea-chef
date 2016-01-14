@@ -9,8 +9,8 @@ bundle check
 gems_installed=$?
 
 set -e
-echo "gems installed?: $gems_installed " >>/test.log
+echo "gems installed?: $gems_installed "
 if [[ $gems_installed -ne 0 ]]
 then
- bundle install --path <%= @app_dir %> >>/test.log
+ bundle install --path <%= @app_dir %>
 fi
