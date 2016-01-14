@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 source /etc/profile.d/rvm.sh
-#rvm use <%= node[:appserver][:ruby][:default_version] %>
+rvm use <%= node[:appserver][:ruby][:default_version] %>
 ## Install Unicorn
 set +e
 cd <%= @app_dir%>
