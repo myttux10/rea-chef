@@ -1,0 +1,1 @@
+sudo knife bootstrap 10.0.0.96 --ssh-user sapp --ssh-password  testrea101 --sudo --use-sudo-password --node-name client.chef-rea.com --run-list 'recipe[role_sinatra_app]'
